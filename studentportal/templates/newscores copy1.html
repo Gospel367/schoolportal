@@ -1,0 +1,97 @@
+
+
+
+<style>
+  *,
+  *:before,
+  *:after {
+      padding:0;
+      margin:0;
+      box-sizing: border-box;
+  }
+
+  body {background-color: skyblue; }  
+
+  .popup{
+    background-color: white;
+    width: 500px;
+    padding: 30px 40px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 8px;
+    font-family: san-serif;
+    text-align: center;
+    font-size: 1em;
+  }
+
+ .popup button {
+   display: block;
+   margin: 0 0 20px auto;
+   background-color: transparent;
+   font-size: 30px;
+   color: #ffffff;
+   background:  #03549a;
+   width: 40px;
+   height: 40px;
+   border: none;
+   outline: none;
+   cursor: pointer;
+ }
+
+</style>
+
+{% block content  %}
+<body>
+<div class='popup'>
+
+  <button id='close'>&times;</button>
+
+  {% if  request.user.is_superuser or request.user.is_teacher %}
+  
+  <h3> Exam Scores </h3>
+  <br>
+
+  
+  <form method ='POST' enctype ="multipart/form-data">
+      {% csrf_token %}
+      <div style='width: 400px;' >
+
+      {{form.student_username}}
+      <br><br>
+      {{form.course}}
+      <br><br>
+    {{form.scores}}
+    <br><br>
+    <input type='submit'  value ='Save'/>
+  </form>
+</div>
+  {% else %}
+    <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+  {% endif %}
+<script>
+window.addEventListener("load", function(){
+  setTimeout(
+    function open(event){
+      document.querySelector(" .popup").style.display="block";
+    },
+    1000
+  )
+    }
+  );
+
+  document.querySelector("#close").addEventListener("click", function(){
+    document.querySelector(".popup").style.display="none";
+  });
+</script>
+
+</div>
+</body>
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,58 @@
+
+  {% extends 'baseportal.html' %}
+
+  {% block content   %}
+  {% if  request.user.is_superuser or request.user.is_teacher %}
+<br><br>
+
+<a href='{% url "staffprofile" %}' style='float: rght; border-radius: 0.3em; margin: 1em; padding: 0.6em; background: darkblue; color: skyblue;'> Go Back </a> 
+
+<h4 style='padding-bottom: 0; margin-bottom:0;'> Class Subject Result for {{lete}} </h4>
+
+  <table>
+      {% if trial %}
+      <tr>
+<th> Name </th>
+<th> Course </th>
+<th>C.A Score  </th>
+<th>Exam Score  </th>
+<th>Total Score  </th>
+<th> Grade  </th>
+
+<th>Compute   </th>
+
+      </tr>
+      {% for list in trial %}
+
+<tr>
+<td>{{list.student_username}}  </td>
+<td>{{list.course}}  </td>
+<td>{{list.cum_score}}  </td>
+<td> {{list.scores}} </td>
+<td> {{list.total_score}} </td>
+<td> {{list.grade}} </td>
+<td> <a href='{% url "updateexamscores" list.pk %}'>Compute </a> </td>
+</tr>
+
+{% endfor %}
+<br>
+
+
+{% else %}
+<p> No Exams Taken for this Subject </p>
+{% endif %}
+</table>
+
+<br>
+<a href='{% url "viewpdf" lete.pk %}' target='blank' style='text-align: justify;'>Download Result </a> 
+</br><br>
+<a href='{% url "generatepdf" lete.pk  %}' target='blank' style='text-align: justify;'>View Result PDF </a> 
+
+
+
+  {% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+  {% endif %}
+  
+  
+  {% endblock %} 

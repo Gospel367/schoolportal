@@ -1,0 +1,31 @@
+
+  {% extends 'baseportal.html' %}
+
+  {% block content   %}
+  {% if  request.user.is_superuser or request.user.is_teacher %}
+  <ul style='list-style-type: none; padding: 0.3em;'>
+  {% for listy in trial %}
+  <li><a href='{% url "updateexamscores" listy.pk %}'>{{listy.student_username}}
+    
+  </a></li>
+{% endfor %}
+  </ul>
+
+   
+
+  <br><br>
+CHOOSEYOUR SUBJECTS
+<ul style='list-style-type: none; padding: 0.3em;'>
+
+  {% for listy in trial2 %}
+  <li><a href='{% url "comptest" listy.pk %}'>{{listy.title}} {{listy.pk}}
+     {{listy.studclass}}</a></li>
+{% endfor %}
+  </ul>
+  
+  {% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+  {% endif %}
+  
+  
+  {% endblock %} 

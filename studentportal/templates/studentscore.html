@@ -1,0 +1,17 @@
+{% extends 'baseportal.html' %}
+
+{% block content  %}
+{% if  request.user.is_superuser or request.user.is_teacher  %}
+<p>
+ Name Of Student: {{studentscore.student_username.first_name}}   {{student.username.last_name}}<br>
+ Class Of Student: {{studentscore.student_username.class_enrolled}}<br>
+ Cummulative Assessment score: {{studentscore.cum_score}}<br>
+ Examination  Score: {{studentscore.scores}}<br>
+ Total Aggregate score: {{studentscore.total_score}}<br><br>
+ <a href='{% url "updateexamscores" studentscore.pk %}'>Compute Score </a> </td>
+</p>
+ {% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+  {% endif %}
+  
+{% endblock  %}

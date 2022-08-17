@@ -1,0 +1,21 @@
+{% extends 'baseportal.html' %}
+
+{% block content   %}
+{% if  not request.user.is_teacher  %}
+<h3> Admission Application Form </h3>
+
+<p><b><i>Note that once you submit this application, you can't edit or retrieve anymore. </i></b></p>
+
+<form method ='POST' enctype ="multipart/form-data">
+    {% csrf_token %}
+
+  {{form.as_p}}
+  
+  <input type='submit'  value ='Save'/>
+</form>
+{% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+{% endif %}
+
+
+{% endblock %}

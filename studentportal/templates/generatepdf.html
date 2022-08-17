@@ -1,0 +1,45 @@
+
+<style>
+      table { font-size: 1em; border: 2px solid black; }
+      td { border: 2px solid black; text-align: center;padding: 0.2em; }
+
+</style>
+  {% block content   %}
+  {% if  request.user.is_superuser or request.user.is_teacher %}
+ 
+  <h4> Class Subject Result for {{lete}} </h4>
+
+  <table>
+      <tr>
+<th> Name </th>
+<th> Course </th>
+<th>C.A Score  </th>
+<th>Exam Score  </th>
+<th>Total Score  </th>
+
+      </tr>
+      {% for list in result %}
+
+<tr>
+<td>{{list.student_username}}  </td>
+<td>{{list.course}}  </td>
+<td>{{list.cum_score}}  </td>
+<td> {{list.scores}} </td>
+<td> {{list.total_score}} </td>
+</tr>
+{% empty%}
+<p> No Exams Taken for this Subject </p>
+{% endfor %}
+</table>
+<br>
+
+
+
+<br>
+
+  {% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+  {% endif %}
+  
+  
+  {% endblock %} 

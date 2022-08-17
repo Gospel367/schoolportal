@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content  %}
+
+<div class ='board' style=' color: white; background: darkblue; '>
+    <h3 style='text-align: center; color: white; margin:1em; margin-bottom:0;  padding-top: 0.5em; '> STUDY FIELDS IN HONEYLAND SCHOOLS</h3>
+
+<ul style ='margin-top:0; padding-top:0; '>
+    <br>
+    <li> <h3>Science Fields</h3>
+        <ul >
+          
+            {% for st in subjects1 %}
+      <li> {{st.title}} </li>
+{% endfor %} 
+        </ul></li>
+            <li><h3> Art Fields </h3>
+                <ul >
+                    {% for st in subjects2 %}
+              <li> {{st.title}} </li>
+        {% endfor %} 
+                </ul> 
+            </li>
+                    <li> <h3>Commercial Field</h3>
+                        <ul >
+                            {% for st in subjects3 %}
+                      <li> {{st.title}} </li>
+                {% endfor %} 
+                        </ul></li>
+        
+        <li><h3>General Field</h3>
+            <ul >
+                {% for st in subjects4 %}
+          <li> {{st.title}} </li>
+    {% endfor %} 
+            </ul>
+        </li>
+                    
+    </ul>
+    <div>
+
+{% endblock  %}

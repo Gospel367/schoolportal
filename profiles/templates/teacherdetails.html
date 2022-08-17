@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class ='board' style=' padding: 1em; margin-top: 1em; color: white; background: darkblue; '>
+    
+       
+       <ul >
+      <h3>Our Teachers</h3>
+
+   <li> <b>Name</b>: {{teacherdetails.first_name}}  {{teacherdetails.last_name}}</li>
+   <li> <b>Email</b>: {{teacherdetails.email}}</li>
+   <li> <b>Phone</b>: {{teacherdetails.phone}}</li>
+   <li><b>Classes Handled</b>:
+      <ul>
+{% for class in details  %}
+<li> {{class.title}} </li>
+{% endfor %}
+
+      </ul>
+   </li>
+   <li><b>Courses Handled</b>:
+      <ul>
+{% for course in details  %}
+<li> {{course.title}} </li>
+{% endfor %}
+      </ul>
+   </li>
+
+     </ul>
+   </div>
+
+{% endblock %}

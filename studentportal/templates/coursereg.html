@@ -1,0 +1,78 @@
+{% extends 'baseportal.html' %}
+
+{% block content   %}
+{% if  request.user.is_superuser or request.user.is_student %}
+<div style='margin-top: 0.5em; border: 1px solid darkblue; float: right; padding: 0.5em;'>
+  <h4 style='text-align: center; margin-top: 0; margin-bottom: 0.1em;' > Soft Reminder </h4>
+You are in {{request.user.class_enrolled}} class. <a href='{% url "studentprofile" %}' style='color: blue; '>Update </a>Your Record!
+</div>
+<h3> Register Courses </h3>
+
+<form method ='POST' enctype ="multipart/form-data">
+    {% csrf_token %}
+  {{form.as_p}}
+
+  <input type='submit'  value ='Save'/>
+</form>
+
+N/B:  <p style='color: red;'>You can scroll below to see the teachers and their assigned courses </p>
+{% if courseregs %}
+<h3 style='text-align: left; box-sizing: border-box;'> My Registered Courses({{courseregs.count}}) </h3>
+<div style='margin-bottom: 0.6em;'>
+    <table >
+  <tr>
+    <td> COURSE NAME </td>
+    <td>  C.A FOR TERM </td>
+    <td> EXAM SCORE </td>
+    <td>  EDIT </td>
+
+  </tr>
+  
+  {% for course in courseregs  %}
+  <tr>
+  
+    <td>{{course.course}}</td>
+    <td>{{course.cum_score}}</td>
+    <td>{{course.scores}}</td>
+    <td><a href='{% url "updatecoursereg" course.pk %}'>Edit</a></td>
+
+  </tr>
+  
+    {% endfor %}
+  </table>
+  </div>
+
+{% else %}
+
+<p> You have no registered course at the moment  </p>
+
+{% endif %}
+
+<h3> Courses and Assigned Teachers </h3>
+
+<table>
+  <tr>
+    <th> Teacher Name </th>
+    <th> Course Assigned </th>
+</tr>
+    <tr>
+
+  {% for teacher in teacherlist  %}
+  <tr>
+  
+    <td>{{teacher.teacher_in_charge.first_name}}  {{teacher.teacher_in_charge.last_name}}</td>
+    
+    <td>{{teacher.title}}</td>
+     
+  </tr>
+  
+    {% endfor %}
+  </table>
+
+{% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+{% endif %}
+
+
+
+{% endblock %}

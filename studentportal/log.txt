@@ -1,0 +1,4 @@
+Always remember to download
+
+1. django-utils-six
+2. tinymce

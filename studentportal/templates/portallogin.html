@@ -1,0 +1,19 @@
+{% extends 'baseportal.html' %}
+
+{% block content %}
+
+<h1> Login Here </h1>
+
+<form method='POST'>
+     {% csrf_token %}
+
+{{ form.as_p }}
+
+<input type ='submit' value ='Submit'/>
+</form>
+
+<p> If you are not registered already, click <a href='{% url "register" %}'>Register Now </a></p>
+<p> Forgotten Password?  <a href='{% url "password_reset" %}'>Click Here </a></p>
+
+ 
+{% endblock %}

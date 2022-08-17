@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content  %}
+<div class ='board' style=' color: white; background: darkblue; '>
+     <h3 style='text-align: center; color: white; margin:1em; margin-bottom:0;  padding-top: 0.5em;''>DEPARTMENTS IN HONEYLAND SCHOOLS </h3>
+        <ul >
+            {% for dept in departments %}
+      <li><b><a href ='{% url "deptstaffs" dept.slug %}' > {{dept.dept_name}}</a></b> </li>
+      <li> HOD: {{dept.hod}}</li>
+      <br>
+
+{% endfor %} 
+        </ul>
+    </div>
+{% endblock  %}

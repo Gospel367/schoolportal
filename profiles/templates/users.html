@@ -1,0 +1,36 @@
+{% extends 'baseportal.html' %}
+
+{% block content %}
+{% if request.user.is_superuser %}
+<div style='margin-bottom: 2em; margin-top: 2em;'>
+    <table>
+  <tr>
+    <th> Username </th>
+    <th> Student </th>
+    <th> Teacher </th>
+    <th> Staff </th>
+    <th> SuperUser </th>
+    <th> Email address </th>
+
+  </tr>
+  
+  {% for user in userlist   %}
+  <tr>
+  
+    <td><a href='{% url "userdetail" user.id %}'>{{user.username}}</a></td>
+    <td>{{user.is_student}}</td>
+    <td>{{user.is_teacher}}</td>
+    <td>{{user.is_staff}}</td>
+    <td>{{user.is_superuser}}</td>
+    <td>{{user.email}}</td>
+
+
+  </tr>
+  
+    {% endfor %}
+  </table>
+  </div>
+  {% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+{% endif %}
+{% endblock %}

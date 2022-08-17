@@ -1,0 +1,21 @@
+{% extends 'baseportal.html' %}
+
+{% block content   %}
+{% if  request.user.is_student  %}
+<h3> Pay Your School Fees </h3>
+
+<p style='color: red;'><b><i>Only Bank Transfer Payment is available at the moment</i></b></p>
+
+<form method ='POST' enctype ="multipart/form-data">
+    {% csrf_token %}
+
+  {{form.as_p}}
+  
+  <input type='submit'  value ='Save'/>
+</form>
+{% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+{% endif %}
+
+
+{% endblock %}

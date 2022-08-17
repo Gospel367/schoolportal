@@ -1,0 +1,153 @@
+<head>
+    <style>
+            {% if request.user.is_superuser %}
+            section {border: 1px dotted darkblue; margin: 0.8em; box-shadow: 0.3em 0.3em 0.3em  darkblue; background: lightblue; padding-left: 0.6em; padding-right: 0.4em; margin-bottom: 0.8em; margin-top: 0.8em;}
+                {% else %}
+                section {border: 1px dotted darkblue; margin: 0.8em; box-shadow: 0.3em 0.3em 0.3em  darkblue; background: skyblue; padding-left: 0.6em; padding-right: 0.4em; margin-bottom: 0.8em; margin-top: 0.8em;}
+                .greeting {padding-left: 0.5em;}
+
+            {% endif %}
+        a { text-decoration: none; }
+        a:hover {font-size: 120%;  }
+
+        li { border-radius: 0.3em; }
+        .boarddash  li a { border-radius: 0.5em; }
+
+      table { font-size: 1em; border: 2px solid black; }
+      td { border: 2px solid black; text-align: center;padding: 0.2em; }
+
+      .cover { display: grid; grid-template-columns: 12fr; grid-gap: 1.3em;  padding: 0.2em; }
+
+      .navigation {border-radius: 0.3em; margin-top: 1em; max-height: 100%; background: darkblue; margin-bottom: 0.3em;}
+      .navigation a { color: skyblue;}
+      .aside { display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(200px, 2fr)); background: skyblue; margin: 0.1em; text-align: center;  box-shadow: 2px 9px 8px darkblue; }
+      .aside li {color: white; display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(200px, 2fr)); background: darkblue; margin: 0.1em; text-align: center; border: 1px solid skyblue;}
+      .aside li a { padding: 0.3em;  color: white; }
+      .aside li a:hover { background: skyblue; color: darkblue; font-size: 120%; }
+
+      @media (min-width:800px){
+        .cover { display: grid; grid-template-columns: 2fr 10fr; grid-gap: 1.3em;  }
+        .navigation a {color: skyblue;}
+        .aside { box-shadow: 2px 9px 8px darkblue; }
+        .aside li {color: white;  background: darkblue; margin: 0.1em; text-align: center; border: 1px solid skyblue;}
+        .aside li a { padding: 0.3em; display: block; color: white; }
+        .aside li a:hover { background: skyblue; color: darkblue; font-size: 120%; }
+                                }
+
+        .board ul { list-style-type: square; pdding: 0.4em;}
+        
+        
+
+        
+        .nav { box-shadow: 2px 9px 8px darkblue; }
+.nav li {color: white;  background: darkblue; margin: 0.1em; text-align: center; border: 1px solid skyblue;}
+.nav li a { padding: 0.3em; display: block; color: white; }
+.nav li a:hover { background: skyblue; color: darkblue; font-size: 120%; }
+
+
+.navfooter {text-align: center; box-shadow: 2px 9px 8px darkblue; }
+.navfooter li {color: white;  padding: 0.6em; display: inline; background: darkblue; margin: 0.1em;  text-align: center; }
+.navfooter li a { padding: 0.3em; color: white; border: 1px solid skyblue; }
+.navfooter li a:hover { background: skyblue; color: darkblue; font-size: 120%; }
+
+
+.boarddash   {list-style-type: none; }
+.boarddash li { text-align: center; color: white;  margin-top: 1em; margin-bottom: 4em;}
+.boarddash li a { background: darkblue; padding: 2em; color: white; box-shadow: 2px 9px 8px black;}
+.boarddash li a:hover { background: skyblue; color: darkblue; }
+    </style>
+</head>
+<body style ='margin: 0em; padding: 0.1em; font-size: 1.3em;  background: skyblue;'   >
+    <header style= 'box-shadow: 2px 6px 5px grey;margin: 0em; padding-left: 1em; padding-right: 1em; 
+    padding-top: 0.5em; max-height: 190em; padding-bottom: 0.3em;
+    background: darkblue; color: white;'>
+    {% if   request.user.is_superuser or  request.user.is_authenticated %}
+    <ul class='nav' style='float: right; list-style-type: none;' >
+        <li> <a  style ='color: white; ' href = '{% url "portal" %}'> Welcome {{request.user.first_name}} </a></li>
+    </ul>
+
+{% else %} 
+    <ul class='nav' style='float: right; list-style-type: none;' >
+        <li> <a  style ='color: white; ' href = '{% url "portalregister" %}'>  Student Register </a></li>
+         
+        </ul>
+    {% endif %}
+
+    
+     
+
+    {% for log in logo  %}
+    <img style="float: left; margin: 0.4em; width: 100px; height: 100px;" src ="{{log.image.url}}"  >
+{% endfor %}
+<h2 style='text-align: left'><a style='color: white;' href='{% url "home" %}'>HoneyLand Schools</a></h2>
+<p style='text-align: left'> <small> .....bringing out the best in the child </small></p>
+
+<ul class='nav' style='list-style-type: none; display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(200px, 2fr));'>
+    <li><a  style ='color: white; ' href ='{% url "apply" %}'> Apply For Admission </a></li>
+    <li> <a href ='{% url "levels" %}'> Levels </a> </li>
+    <li> <a href ='{% url "departments" %}'> Departments </a> </li>
+    <li><a href ='{% url "fields" %}'> Fields </a></li>
+    {% if   not request.user.is_authenticated %}
+    <li><a  style ='color: white; ' href ='{% url "portallogin" %}'>Portal Login </a></li>
+    {% endif %}    
+    {% if   request.user.is_superuser or  request.user.is_authenticated %}
+     <li><a  style ='color: white; ' href ='{% url "portallogout" %}'> Logout </a></li>
+     {% endif %}
+     </ul>
+    </header>
+    
+<div class ='cover'>
+    <nav class='navigation'>
+        <ul class ='aside' style =' padding:0;  list-style-type: none;'>
+            {% if request.user.is_student or request.user.is_superuser %}
+        <li><a href ='{% url "portal" %}'> Student Portal </a></li>
+        {% endif %}
+        {% if request.user.is_teacher or request.user.is_superuser %}
+        <li><a href ='{% url "portal" %}'> Staff Portal </a></li>
+        {% endif %}        
+        {% if request.user.is_teacher or request.user.is_superuser %}
+        <li><a href ='{% url "staffdashboard" %}'> Staff Dashboard </a></li>
+        {% endif %}
+{% if request.user.is_student or request.user.is_superuser %}
+        <li><a href ='{% url "studentdashboardlink" %}'> Student Dashboard </a></li>
+        {% endif %}
+        <li><a href ='{% url "home" %}'> Home </a></li>
+        <li><a href ='{% url "payment" %}'> Pay Fees </a></li>
+        <li><a href ='{% url "publist" %}'> Publications </a></li>
+        <li> <a href ='{% url "home" %}'> About us </a> </li>
+        <li> <a href ='{% url "staffs" %}'> Contact us </a> </li>
+        <li><a  style ='color: white; ' href ='{% url "admissionstat" %}'> Admission Status </a></li>
+    </nav>
+
+<section style='padding-right: 0.5em'>
+    
+{% block content %}
+
+{% endblock %}
+</section>
+</div>
+
+<footer style= 'max-height: 18em; padding-bottom: 0.2em; max-height: 18em; 
+ box-shadow: 2px 6px 5px grey; margin: 0em; padding-left: 1em; padding-right: 1em; padding-top: 0.2em;
+    background: darkblue; color: white;'>
+
+
+    <nav>
+        <ul class ='nav' style =' padding:0; list-style-type: none; display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(200px, 2fr));'>
+            {% if request.user.is_student or request.user.is_superuser  %}
+            <li><a href ='{% url "studentdashboardlink" %}'>  Portal </a></li>
+            {% endif %}
+    {% if request.user.is_teacher or request.user.is_superuser%}
+            <li><a href ='{% url "staffdashboard" %}'>  Portal </a></li>
+            {% endif %}
+            <li><a href ='{% url "home" %}'> Home </a></li>
+            <li> <a href ='{% url "levels" %}'> Levels </a> </li>
+            <li> <a href ='{% url "departments" %}'> Departments </a> </li>
+            <li><a href ='{% url "fields" %}'> Fields </a></li>
+            <li><a  style ='color: white; ' href ='{% url "admissionstat" %}'> Admission Status </a></li>
+
+        </ul>
+    </nav>
+
+</footer>
+</body>

@@ -1,0 +1,35 @@
+{% extends 'baseportal.html' %}
+{% block content  %}
+<br>
+{% if  request.user.is_superuser  or request.user.is_student %}
+
+  {% if userdata2 %}
+{% for profile in userdata2  %}
+<ul style ='list-style-type: none;'>
+
+<h3 style='color: darkblue'> Student Profile </h3>
+<li style='float: right;'> <img src='{{profile.picture.url}}'  width='150px' height='150px'/> </li>
+<li>Username: {{profile.nickname.username}}</li>
+<li>Name: {{profile.nickname.first_name}} {{profile.nickname.last_name}} </li>
+<li>Email: {{profile.nickname.email}}</li>
+<li>Phone: {{profile.nickname.phone}}</li>
+<li>State: {{profile.nickname.state}}</li>
+<li>Address: {{profile.nickname.mailing_address}}</li>
+<li>Enrollment Date: {{profile.date_enrolled}}</li>
+<li>Study Field: {{profile.nickname.study_field}}</li>
+<li>Class: {{profile.nickname.class_enrolled}} </li>
+<li> <a href ="{% url 'updatestudentprofile' profile.nickname.pk %}" > Update  Profile </a> </li>
+</ul>
+{% endfor %}
+<p style='font-size: medium; color: red;'>NOTICE:  You might see different values from what you filled in. Don't worry, your data is filled automatically from the school database </p>
+
+{% else  %}
+
+ <b>Oooops!!!!  Sorry, You haven't created your profile! <a style='color: white;' href ="{% url 'register' %}" > Create  Profile </a> </b>
+
+{% endif %}
+ 
+{% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+{% endif %}
+{% endblock  %}

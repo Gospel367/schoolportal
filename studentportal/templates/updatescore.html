@@ -1,0 +1,23 @@
+{% extends 'baseportal.html' %}
+
+{% block content   %}
+{% if  request.user.is_superuser or request.user.is_teacher %}
+  
+<h3> Exam Scores </h3>
+<br>
+
+
+<form method ='POST' enctype ="multipart/form-data">
+    {% csrf_token %}
+    <div style='width: 400px;' >
+
+    {{form.as_p}}
+  <input type='submit'  value ='Save' next='history.back()'/>
+</form>
+</div>
+{% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+{% endif %}
+{{return}}
+
+{% endblock %}

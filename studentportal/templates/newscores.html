@@ -1,0 +1,20 @@
+{% extends 'baseportal.html' %}
+
+{% block content   %}
+{% if  request.user.is_superuser or request.user.is_teacher %}
+
+<h4> My Students Results </h4>
+
+    <ul  style='list-style-type: none; display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));'>
+    {% for course in mycourses %}
+        <li><a href='{% url "comptest"  course.pk %}'> {{course}}</a></li> 
+        {% endfor %}
+
+    </ul>
+    
+    
+
+    {% else %}
+    <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content  %}
+<div class ='board' style=' color: white; background: darkblue; '>
+     <h3 style='text-align: center; color: white; margin:1em; margin-bottom:0;  padding-top: 0.5em;' >AVAILABLE LEVELS IN HONEYLAND SCHOOLS</h3>
+        <ul >
+            {% for level in levels %}
+      <li> {{level.class_name}} </li>
+
+      <br>
+
+{% endfor %} 
+        </ul>
+    </div>
+{% endblock  %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class ='boarddash' style=' color: white; background: darkblue; '>
+    
+       <ul >
+           <br>
+        <h3>Our Staffs</h3>
+
+           {% for staff in deptstaffs %}
+     <li> Name: {{staff.firstname}}  {{staff.lastname}}</li>
+     <li> Email: {{staff.email}}</li>
+     <li> Phone: {{staff.phone}}</li>
+     <li> Department: {{staff.dept}}</li>
+
+
+     <br>
+
+{% endfor %} 
+       </ul>
+   </div>
+
+{% endblock %}

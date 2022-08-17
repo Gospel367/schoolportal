@@ -1,0 +1,16 @@
+{% extends 'baseportal.html'%}
+
+{% block content %}
+{% if request.user.is_superuser %}
+<form method='POST'>
+{% csrf_token %}
+<p> Are you sure you want to delete this task? '{{userdetail}}' <p>
+    <input type= 'submit' value='Delete'/> 
+<a href = "{% url 'userlist' %}"> Cancel  </a>
+</form>
+
+{% else  %}
+<p style='color: darkblue;'> Sorry, you are not authorized to perform this action. Back off!! </p>
+{% endif %}
+{% endblock  %}
+

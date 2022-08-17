@@ -1,0 +1,36 @@
+{% extends 'baseportal.html' %}
+
+{% block content   %}
+<div style='color: black;'style='display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));'>
+
+ {% if request.user.is_student or request.user.is_superuser  %}
+ 
+{% if paid2  %} 
+<h3 style='text-align: center; color: darkblue; '> Payment Status for {{request.user}} </h3>
+
+<p style='color: black; font-size: 1em; text-align: center;'><b>Congratulations {{request.user}}! You have successfully paid your fees for 2021/22 session. You can now freely participates in all activities, tests and examinations in the school </b></p>
+</b></p>
+
+{% elif not paid2  %}
+<h3 style='text-align: center;'> School Bank Account Details </h3>
+
+ <p style='color: black; font-size: 1em; text-align: center;'> <b> Thank You for starting the school fees payment process. Please kindly note that your school fees debt will be cleared automatically once your payment is cleared by the school financial department. 
+     
+<br>Check below for the school bank account details and always add payment narration to your transactions:
+    <br>
+    <br>
+Account Name: HoneyLand Schools<br>
+Bank Name: Fidelity Bank<br>
+Account Number : 00234455661<br>
+Narration: Use 'Payment for school fees'<br>
+</b></p>
+{% else %}
+Who are you 
+
+{% endif %}
+{% else %}
+<p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+
+{% endif %}
+</div>
+{% endblock %}

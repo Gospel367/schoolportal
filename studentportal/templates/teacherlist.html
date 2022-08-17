@@ -1,0 +1,36 @@
+{% extends 'baseportal.html' %}
+
+{% block content   %}
+{% if  request.user.is_superuser  %}
+
+
+
+<h3> List Of Active Employed Teachers </h3>
+
+<table>
+  <tr>
+    <th> Teacher Name </th>
+    <th> Course Assigned </th>
+  </th>
+</tr>
+    <tr>
+
+  {% for teacher in teacherlist  %}
+  <tr>
+  
+    <td>{{teacher.teacher_in_charge.first_name}}  {{teacher.teacher_in_charge.last_name}}</td>
+    
+    <td>{{teacher.title}}</td>
+   
+    <td><a href='{% url "updateassignteacher" teacher.pk %}'>Reassign Course</a></td>
+  
+  </tr>
+  
+    {% endfor %}
+  </table>
+
+{% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+{% endif %}
+
+{% endblock %}

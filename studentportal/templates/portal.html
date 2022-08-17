@@ -1,0 +1,53 @@
+{% extends 'baseportal.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}<p  class='greeting'> Welcome <b style ='color:blue;'>
+    {{request.user}}
+</b>
+{% endif %}
+{% if request.user.is_student or request.user.is_superuser %}
+<h3 style='text-align: center; color: darkblue'> This is the Official School Portal </h3>
+<br>
+
+<ul  class='boarddash' style='display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));'>
+    <li><a href ='{% url "studentdashboardlink" %}'> Student  Dashboard </a> </li>
+<li><a href ='{% url "apply" %}'>   Apply For Admission </a> </li>
+<li><a href ='{% url "studentcomplaints" %}'>   Report an Issue </a> </li>
+<li><a href ='{% url "admissionstat" %}'>  Admission Status </a> </li>
+</ul>
+{% endif %}
+{% if request.user.is_superuser or request.user.is_teacher %}
+<h3 style='text-align: center; color: darkblue'> This is the Official School Portal </h3>
+<br>
+<ul  class='boarddash' style='display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));'>
+<li><a href ='{% url "staffdashboard" %}'> Teacher  Dashboard </a> </li>
+<li><a href ='{% url "complaints" %}'>   Report an Issue </a> </li>
+<li><a href ='{% url "newexamscores" %}'> Students' Result </a> </li>
+</ul>
+{% endif %}
+<br>
+{% if  request.user.is_superuser  %}
+<h3 style='color: darkblue; text-align: center'> Admin Restricted Area </h3>
+<br>
+<ul  class='boarddash' style='display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));'>
+    <li><a href ='{% url "createpub" %}'> New Publication </a> </li>
+<li><a href ='{% url "publist" %}'> All Publications </a> </li>
+<li><a href ='{% url "userlist" %}'> All Users </a> </li>
+<li><a href ='{% url "assignteachers" %}'>  Assign Teachers </a> </li>
+<li><a href ='{% url "applicantlist" %}'> All Applicants </a> </li>
+
+</ul>
+<br>
+{% elif not request.user.is_teacher and not request.user.is_student  %}
+<p><i>You are seeing this text because you are not yet admitted as a student or employed as a staff in Honeyland schools. Apply for admission or a job opening  and once accepted
+,you can access the features of the portal.  </i></p>
+
+{% if  request.user.is_authenticated %}
+<button style='background: white; color: white; padding: 0.7em;'>
+    <a href ='{% url "apply" %}'> Apply Now </a>
+</button>
+{% endif %}
+{% endif %}
+</ul>
+{% endblock %}

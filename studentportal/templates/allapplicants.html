@@ -1,0 +1,46 @@
+{% extends 'baseportal.html' %}
+
+{% block content   %}
+<h4> All Unadmitted Students List ({{unadmitted.count}})</h4>
+ {% if  request.user.is_superuser  %}
+<div>
+    {% for status in unadmitted  %}
+    <ul style='list-style-type: none; display: inline-grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(100px, 2fr));'>
+<li><a href ='{% url "applicantdetail" status.pk %}'> {{status.firstname}}  {{status.lastname}}</a></li>
+    </ul>
+
+    {% endfor %}
+</div>
+
+<h4> Unconfirmed Admission List </h4>
+
+<div>
+    {% for status in admitted  %}
+    {% if approved %}
+    
+    {% elif not approved %}
+    <ul style='list-style-type: none; display: inline-grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(100px, 2fr));'>
+<li><a href ='{% url "applicantdetail" status.pk %}'  style= 'color: red;'> {{status.firstname}}  {{status.lastname}}</a></li>
+    </ul>
+    {% endif %}
+    {% endfor %}
+
+
+    <h4> Approved Admission List({{approved.count}}) </h4>
+
+<div>
+    {% for status in approved  %}
+    <ul style='list-style-type: none; display: inline-grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(100px, 2fr));'>
+<li><a href ='{% url "applicantdetail" status.pk %}' style= 'color: green; '> {{status.firstname}}  {{status.lastname}}</a></li>
+    </ul>
+    {% endfor %}
+{% else %}
+<p><b> Sorry, you are permitted to be here. Back Off!!</b></p>
+{% endif %}
+
+{% for app in customuser.applicants.set_all  %}
+{{app.nickname}}
+
+{% endfor %}
+
+{% endblock %}

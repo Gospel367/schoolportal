@@ -1,0 +1,27 @@
+{% extends 'baseportal.html' %}
+
+{% block content   %}
+<h3> Application Detail </h3>
+ {% if  request.user.is_superuser  %}
+<div >
+    <ul style='list-style-type: none; '>
+<li style='float: right;'> <img src='{{applicantsdetail.picture.url}}'  alt='no picture yet' width='150' height='150px'/> </li>
+<li><a href='{% url "userdetail" applicantsdetail.nickname.pk  %}'>Username: {{applicantsdetail.nickname}}</a></li>
+<li>Full Name: {{applicantsdetail.firstname}} {{applicantsdetail.middlename}} {{applicantsdetail.lastname}}</li>
+<li>Email: {{applicantsdetail.email}}</li>
+<li>Phone: {{applicantsdetail.phone}}</li>
+<li>Gender: {{applicantsdetail.gender}}</li>
+<li>Birth Date: {{applicantsdetail.birth_date}}</li>
+<li>Nationality: {{applicantsdetail.nationality}}</li>
+<li>State: {{applicantsdetail.state}}</li>
+<li>Address: {{applicantsdetail.address}}</li>
+<li>Class Chosen: {{applicantsdetail.class_choice}}</li>
+<li>Admitted: {{applicantsdetail.is_admitted}}</li><br>
+<li> <a href ='{% url "updateapplication" applicantsdetail.pk %}'> Update Application </a> | <a href='{% url "userdetail" applicantsdetail.nickname.pk  %}'>Update {{applicantsdetail.nickname}} Profile</li>
+
+    </ul>
+{% else %}
+<p><b> Sorry, you are not permitted to be here. Back Off!!</b></p>
+{% endif %}
+
+{% endblock %}

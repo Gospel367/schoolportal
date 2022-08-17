@@ -1,0 +1,36 @@
+{% extends 'baseportal.html' %}
+
+{% block content   %}
+<div style='color: black;'style='display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));'>
+
+<h3> Admission Status </h3>
+{% if applicants %}
+ {% if request.user.is_student or request.user.is_superuser  %}
+    <br>
+<a style='margin: 1em; border: 1px solid black; padding: 0.5em; background: darkblue; color: white' href ='{% url "studentdashboardlink" %}'>  Go To Dashboard </a>
+    <a  style='margin: 1em; border: 1px solid black; padding: 0.5em; background: darkblue; color: white' href ='{% url "portal" %}'>  Go To Portal </a>
+    {% for status in applicants  %}
+    <p style='margin-right: 1em; float: right;'><b>HoneyLand Int'l Schools<br> Magodo Estate<br>Lagos State</p>
+<p style='float: left;'>Congratulations {{request.user.first_name}}  {{request.user.last_name}}, <br>
+    <br>
+    You have been offered provisional admission into {{status.class_choice}}. We are happy to have you in the class of 2022/23 students. Your admission is dependent on your clearance from the academic senate. Proceed to the academic department for your clearance and payment of school fees. </b></p>
+    <p style='margin-right: 1em; float: left;'><b>The Registrar,<br>  Tokunbo Abiru,<br>HoneyLand Schools</b></p>
+{% endfor %}
+{% elif not request.user.is_student  %}
+<p><b> Sorry {{request.user.first_name}} {{request.user.last_name}}, You are not admitted yet. Keep up the faith friend!</b></p>
+{% endif %}
+
+{% elif not applicants and request.user.is_student %}
+<p><b> You have no admisssion application with us. This means you are either a "special slot" student or bridged the website admission system. 
+    If the former, apply for admission <a href='{% url "apply" %}'>Here </a>.</b></p>
+
+    
+{% elif not applicants and not request.user.is_student and not request.user.is_teacher%}
+<p><b> You have no admisssion application with us. </b></p>
+
+{% elif not applicants and request.user.is_teacher%}
+<p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+ {% extends 'baseportal.html' %}
+
+{% block content   %}
+{% if  request.user.is_superuser or request.user.is_teacher %}
+
+<h3> New Complain </h3>
+
+<form method ='POST' enctype ="multipart/form-data">
+    {% csrf_token %}
+
+  {{form.as_p}}
+  
+  <input type='submit'  value ='Save'/>
+</form>
+
+
+<h3 style='text-align: center;'> My Complains({{mycomplains.count}}) </h3>
+{% if mycomplains %}
+{% for complains in mycomplains  %}
+<ul style='color: white; list-style-type: none; border: 1px solid white; background: darkblue;'>
+  <li> Subject: {{complains.subject}}</li>
+  <li> Description: {{complains.description}}</li>
+  <li> Recommendation: {{complains.recommendation}}</li>
+  <li> Resolved: {{complains.resolved}}</li>
+</ul> 
+  {% endfor %}
+
+{% else %}
+
+<p> You have no pending complains at the moment  </p>
+
+{% endif %}
+
+{% else %}
+<p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+{% endif %}
+
+
+{% endblock %}

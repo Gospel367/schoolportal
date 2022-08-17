@@ -1,0 +1,17 @@
+{% extends 'baseportal.html' %}
+
+{% block content  %}
+{% if  request.user.is_superuser or request.user.is_teacher  %}
+<ul style='list-style-type: none; padding-left: 0px'>
+    {% for pub1 in pub  %}
+{% for puby in  pub1.courses_handled.all%}
+   <li><a href ='{% url "comptest2" puby.slug  %}'> {{puby}}</a></li>
+   {% endfor %}
+
+   {% endfor %}
+
+</ul>
+
+{% endif %}
+
+{% endblock  %}

@@ -1,0 +1,58 @@
+{% extends 'baseportal.html' %}
+
+{% block content  %}
+{% if  request.user.is_superuser or request.user.is_teacher  %}
+
+<h3 style='color: darkblue; pading:0;'> Personal Details </h3>
+
+<ul style='list-style-type: none;'>
+    {% if userinfo2 %}
+    <li style='float: right;'> <img src='{{userinfo2.profile_pic.url}}'  width='200px' height='200px'/> </li>
+    <li>Username: {{userinfo2.username}}</li>
+    <li>Name: {{userinfo2.first_name}} {{userinfo2.last_name}} </li>
+    <li>Email: {{userinfo2.email}}</li>
+    <li>Phone: {{userinfo2.phone}}</li>
+    <li>State: {{userinfo2.state}}</li>
+    <li>Department: {{userinfo2.dept}}</li>
+    <li>Employment Date: {{userinfo2.date_joined}}</li>
+    <li> <a href ="{% url 'updatestaffprofile' userinfo2.pk %}" > Update  Profile </a> </li>
+
+   {%  else %}
+
+   <b> Sorry, You haven't updated your profile! <a href ="{% url 'createuserinfo2ile' %}" > Update  Profile </a> </b>
+</ul>
+{%  endif  %}
+
+{% if request.user.is_superuser %}
+<h3 style='color: darkblue; pading:0;'> All Employed Staffs Self-Submitted Info </h3>
+
+<div style='display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));' >
+    <ul style='padding: 0.3em; list-style-type:none; background: darkblue; color: white;'   >
+    <li style='float: right;'> <img src='{{userinfo2.profile_pic.url}}'  width='80px' height='80px'/> </li>
+<li>Username: {{userinfo2}}</li>
+<li>Name: {{userinfo2.first_name}} {{userinfo2_lastname}} </li>
+<li>Email: {{userinfo2.email}}</li>
+<li>Phone: {{userinfo2.phone}}</li>
+<li>State: {{userinfo2.state}}</li>
+<li>Department: {{userinfo2.dept}}</li>
+<li>Enrollment Date: {{userinfo2.date_enrolled}}</li>
+<li> <a href ="{% url 'updatestaffprofile' userinfo2.pk %}" > Update  Profile </a> </li>
+</ul>
+
+</div>
+{% endif %}
+<h4> My Students Results </h4>
+
+    <ul  style='list-style-type: none; display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));'>
+    {% for course in mycourses %}
+        <li><a href='{% url "comptest"  course.pk %}'> {{course}}</a></li> 
+        {% endfor %}
+
+    </ul>
+    
+    
+
+    {% else %}
+    <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+  {% endif %}
+{% endblock  %}

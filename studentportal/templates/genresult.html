@@ -1,0 +1,46 @@
+
+  {% extends 'baseportal.html' %}
+
+  {% block content   %}
+
+
+<h3> Exam Scores </h3>
+
+  <div style='padding: 1em'>
+  {% if  request.user.is_superuser or request.user.is_student %}
+
+  <h4> All Results </h4>
+  <table>
+      <tr>
+<th> Name </th>
+<th>Class  </th>
+<th> Student </th>
+<th> C.A Score </th>
+<th> Exam Score   </th>
+<th>Total Score  </th>
+
+      </tr>
+      
+      {% for list in JSS1 %}
+<tr>
+<td>{{list.student_username}}  </td>
+<td>{{list.student_username.class_enrolled}}  </td>
+<td>{{list.course.title}}  </td>
+<td>{{list.cum_score}}  </td>
+<td> {{list.scores}} </td>
+<td> {{list.total_score}} </td>
+
+{% endfor %}
+
+</tr>
+</table>
+
+
+
+
+  {% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+  {% endif %}
+</div>
+  
+  {% endblock %} 

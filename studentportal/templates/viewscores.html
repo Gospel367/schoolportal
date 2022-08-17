@@ -1,0 +1,61 @@
+{% extends 'baseportal.html' %}
+
+{% block content  %}
+{% if  request.user.is_student  %}
+
+<p><b> Congratulations  <a href ='{% url 'studentprofile' %} '>{{request.user}}</a>! Below is your result: </b></p>
+
+<div style='margin-bottom: 0.6em;'>
+  <table>
+<tr>
+  <td> COURSE NAME </td>
+  <td>  C.A FOR TERM </td>
+  <td> EXAM SCORE </td>
+  <td> TOTAL SCORE </td>
+  <td> GRADE </td>
+
+</tr>
+
+{% for course in courseregs  %}
+<tr>
+
+  <td>{{course.course}} </td>
+  <td>{{course.cum_score}}</td>
+  <td>{{course.scores}}</td>
+  <td>{{course.total_score}}</td>
+  <td>{{course.grade}}</td>
+
+</tr>
+
+  {% endfor %}
+</table>
+</div>
+
+<p>Your GPA for this semester is
+  {% for value in avgscore.values  %}
+  {{value}}%
+
+  {% if value < 50 %}
+  <p style='color:  red;'>
+  Sorry! You failed for this semester. Meet your form teacher for guidance!</p>
+  {% else %}
+  <p style='color:  blue;'>
+    Congrats! You successfully passed this semester! Unto the next one!
+  </p>
+  {% endif %}
+  {% endfor %}
+<p>Total number of courses offered: {{totalcount}}
+  <p>Total number of passed courses : {{passed_courses}}
+    <p>Total number of failed courses: {{failed_courses}}
+
+
+
+</p>
+
+ <p><i> Note: Your results here are the official and final scores. However, 
+  if you have any issue with the results, contact the  <a href='{% url 'departments' %}'> Academic Department </a> for rectification
+ </i></p>
+ {% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+{% endif %}
+  {% endblock  %}

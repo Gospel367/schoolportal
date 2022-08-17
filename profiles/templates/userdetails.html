@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if request.user.is_superuser %}
+
+<ul style='margin-left: 0em; list-style-type: none;'>
+    <li>Username: {{userdetail.username}}<li>
+        <li> Email address: {{userdetail.email}}<li>
+                <li>Teacher Status: {{userdetail.is_teacher}}<li>
+                    <li> Student Status: {{userdetail.is_student}}<li>
+                        <li>Superuser Status: {{userdetail.is_superuser}}<li>
+                            <li>Mailing address:  {{userdetail.mailing_address}}<li>
+                                <li>Phone:  {{userdetail.phone}}<li>
+                                    <li> State of Origin: {{userdetail.state}}<li>
+                                        <li> Country: {{userdetail.country}}<li>
+                                            <li><a href ='{% url "updateuser" userdetail.pk %}' >Update User </a>  |  <a href ='{% url "deleteuser" userdetail.pk %}' >Delete User </a></li>
+
+                                        </ul>
+                                        {% else %}
+                                        <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+                                      {% endif %}
+                                      {% for user in usercomplains  %}
+                                      <p> N/B: This is to test related_name in Django:  {{user.subject}}|{{user.fullname}}</p>
+                                      
+                                      {% endfor %}
+{% endblock %}
